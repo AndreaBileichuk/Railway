@@ -14,7 +14,7 @@ public class ResultTests
         Assert.True(result.IsSuccess);
         Assert.Empty(result.Error);
     }
-
+    
     [Fact]
     public void Result_Fail_Should_Have_Error()
     {
@@ -28,7 +28,7 @@ public class ResultTests
         Assert.False(result.IsSuccess);
         Assert.Equal(message, result.Error);
     }
-
+    
     [Fact]
     public void ResultT_Ok_Should_Store_Value()
     {
@@ -43,4 +43,4 @@ public class ResultTests
         Assert.Equal(value, result.Value);
         Assert.Empty(result.Error);
     }
-}
+}   

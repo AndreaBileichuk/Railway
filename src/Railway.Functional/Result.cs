@@ -29,7 +29,13 @@ public sealed class Result<T> : Result
     {
         Value = value;
     }
-    
-    public static Result<T> Ok(T value) => new (value, true, string.Empty);
+
+    public static Result<T> Ok(T value)
+    {
+        if (value is null)
+            throw new InvalidOperationException("Value cannot be null for a successful result.");
+        
+        return new Result<T>(value, true, string.Empty);
+    }
     public new static Result<T> Fail(string message) => new (default, false, message);
 }
