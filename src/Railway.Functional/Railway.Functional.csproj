@@ -2,8 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
+    <PackageId>Railway.Functional</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Andrea Bileichuk</Authors>
+    <Company>Andrea Bileichuk</Company>
+    <Description>
+      Simple railway-oriented Result library for clean success/failure flows.
+    </Description>
+    
+    <PackageTags>result;functional;railway;</PackageTags>
+    <RepositoryUrl>https://github.com/AndreaBileichuk/Railway</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>

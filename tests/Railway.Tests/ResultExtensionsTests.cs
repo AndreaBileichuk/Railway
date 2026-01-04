@@ -36,18 +36,60 @@ public class ResultExtensionsTests
     }
 
     [Fact]
-    public void OnSuccess_Should_Chain_With_Value()
+    public void OnSuccess_With_Value_Should_Call_Action_With_Value()
     {
         // Arrange
         var value = 100;
         
         // Act
         var result = Result<int>.Ok(value)
-            .OnSuccess((v) => v + 10)
-            .OnSuccess((v) => v + 10);
+            .OnSuccess((v) =>
+            {
+                Assert.Equal(100, v);
+            });
         
         // Assert
-        Assert.Equal(100, value);
-        Assert.Equal(120, result.Value);
+        Assert.Equal(100, result.Value);
+    }
+
+    [Fact]
+    public void OnFail_Should_Call_OnError_Extension_Method_With_Message()
+    {
+        // Arrange
+        var error = "Wow!";
+        
+        // Act
+        var result = Result.Fail("Wow!")
+            .OnSuccess(() =>
+            {
+            })
+            .OnFail((errorMsg) =>
+            {
+                Assert.Equal(error, errorMsg);
+            });
+        
+        // Assert
+        Assert.Equal(error, result.Error);
+    }
+
+    [Fact]
+    public void OnFail_Should_Call_OnError_With_Message_And_Value()
+    {
+        // Arrange
+        var error = "Wow";
+        
+        // Act
+        var result = Result<int>.Fail(error)
+            .OnSuccess(() =>
+            {
+            })
+            .OnFail((errorMsg) =>
+            {
+                Assert.Equal(error, errorMsg);
+            });
+        
+        // Assert
+        Assert.Equal(error, result.Error);
+        Assert.Equal(0, result.Value);
     }
 }

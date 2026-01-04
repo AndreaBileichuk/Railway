@@ -1,4 +1,6 @@
-﻿namespace Railway.Functional;
+﻿using System;
+
+namespace Railway.Functional;
 
 public class Result
 {
@@ -23,9 +25,9 @@ public class Result
 
 public sealed class Result<T> : Result
 {
-    public T? Value { get; }
+    public T Value { get; }
 
-    private Result(T? value, bool isSuccess, string error) : base(isSuccess, error)
+    private Result(T value, bool isSuccess, string error) : base(isSuccess, error)
     {
         Value = value;
     }

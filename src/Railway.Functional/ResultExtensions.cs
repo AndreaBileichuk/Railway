@@ -1,23 +1,54 @@
-﻿namespace Railway.Functional;
+﻿using System;
+
+namespace Railway.Functional;
 
 public static class ResultExtensions
 {
     public static Result OnSuccess(this Result result, Action action)
     {
         if (!result.IsSuccess)
-            return Result.Fail(result.Error);
+            return result;
 
         action();
         return result;
     }
 
-    public static Result<T> OnSuccess<T>(this Result<T> result, Func<T, T> func)
+    public static Result<T> OnSuccess<T>(this Result<T> result, Action action)
     {
         if (!result.IsSuccess)
-            return Result<T>.Fail(result.Error);
+            return result;
 
-        var newValue = func(result.Value!);
+        action();
+        return result;
+    }
+
+    public static Result<T> OnSuccess<T>(this Result<T> result, Action<T> action)
+    {
+        if (!result.IsSuccess)
+            return result;
+
+        action(result.Value!);
         
-        return Result<T>.Ok(newValue);
+        return result;
+    }
+
+    public static Result OnFail(this Result result, Action<string> action)
+    {
+        if (result.IsSuccess)
+            return result;
+
+        action(result.Error);
+
+        return result;
+    }
+
+    public static Result<T> OnFail<T>(this Result<T> result, Action<string> action)
+    {
+        if (result.IsSuccess)
+            return result;
+
+        action(result.Error);
+
+        return result;
     }
 }
